@@ -1,0 +1,146 @@
+#taquito-task-statement, #taquito-hints, #taquito-wallet {
+    user-select: text;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+    line-height: 1.8em;
+    background-color: #eee;
+    border-radius: 10px;
+    margin: 16px;
+}
+
+#taquito-task-statement h3, #taquito-hints h3 {
+    display: block;
+    font-size: 16px;
+    line-height: 22px;
+    color: white;
+    border-radius: 5px 5px 0 0;
+    text-align: center;
+    margin: 0;
+    padding: 13px;
+}
+
+#taquito-task-statement h3 {
+    background: #4a90e2;
+}
+
+#taquito-hints-container {
+    padding: 8px;
+}
+
+#taquito-hints h3 {
+    background: #aaa;
+}
+
+.taquito-hints-hint {
+    margin: 8px;
+    padding: 8px;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+
+#taquito-task-statement > div {
+    padding: 8px;
+}
+
+#taquito-wallet {
+    padding: 8px;
+}
+
+#taquito-connect, #taquito-disconnect, #taquito-hints-button, #taquito-keygen {
+    margin: 10px;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#taquito-connect, #taquito-keygen {
+    background: #4a90e2;
+}
+#taquito-disconnect, #taquito-hints-button {
+    background: #aaa;
+}
+
+#taquito-task-statement code {
+    font-family: monospace;
+    white-space: pre;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 4px 2px;
+    user-select: text;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+}
+
+#taquito-input-container, #taquito-editor {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+#taquito-console-container {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+#taquito-console {
+    width: 100%;
+    height: 200px;
+    background-color: #333;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    font-family: monospace;
+    white-space: pre;
+    overflow-x: auto;
+    user-select: text;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+}
+
+#displayHelper_validate,
+#displayHelper_cancel {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+#displayHelper_validate>input,
+#displayHelper_cancel>input {
+    width: 150px;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#displayHelper_validate>input i,
+#displayHelper_cancel>input i {
+    display: none;
+    /*margin-right: 10px;*/
+}
+
+#displayHelper_validate>input {
+    background: #4a90e2;
+    margin-right: 10px;
+}
+
+#displayHelper_cancel>input {
+    background: #4a4a4a;
+    margin: 0 10px;
+}
+
+#showSolutionButton, #miniPlatformHeader {
+    display: none;
+}

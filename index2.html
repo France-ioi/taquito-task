@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8"></meta>
+   <title>Taquito task</title>
+   <script>
+      window.stringsLanguage = 'en';
+   </script>
+   <script class="remove" type="text/javascript" src="../bebras/bebras-modules/pemFioi/importModules-1.5.js" id="import-modules"></script>
+   <script class="remove" type="text/javascript">
+      var modulesPath = '../bebras/bebras-modules';
+      importModules([
+         'jquery-1.7.1', 'jquery-ui.touch-punch', 'JSON-js', 'jschannel',
+         'beav-1.0', 'beaver-task-2.0',
+         'platform-pr', 'buttonsAndMessages', 'installationAPI.01', 'miniPlatform',
+         'taskStyles-0.1', 'ace', 'acorn', 'js-interpreter', 'fonts-loader-1.0'
+      ]);
+   </script>
+   <script class="remove" type="text/javascript">
+      window.FontsLoader.loadFonts(['fontawesome']);
+   </script>
+   <script type="text/javascript" src="./dist/taquito-task.js"></script>
+   <script class="remove" type="text/javascript">
+      var json = {
+         "id": "",
+         "language": "en",
+         "version": "en.01",
+         "authors": "",
+         "translators": [],
+         "license": "",
+         "taskPathPrefix": "",
+         "modulesPathPrefix": "",
+         "browserSupport": [],
+         "fullFeedback": true,
+         "acceptedAnswers": [],
+         "usesRandomSeed": false,
+         "autoHeight": true
+       };
+   </script>
+   <script type="text/javascript" src="task2.js"></script>
+   <link rel="stylesheet" type="text/css" href="taquito-task.css"></link>
+</head>
+
+<body>
+   <div id="task">
+      <h1>Taquito task</h1>
+   </div>
+
+   <div id="solution">
+   </div>
+</body>
+
+</html>
