@@ -3,11 +3,9 @@ import { BeaconWallet } from "@taquito/beacon-wallet";
 import $ from "jquery";
 import {
     Network,
-    NetworkType,
-    PermissionScope
-} from "@airgap/beacon-sdk";
+    NetworkType
+} from "@ecadlabs/beacon-types";
 import ace from "ace-builds";
-import { Ace } from "../node_modules/ace-builds/ace";
 import { InMemorySigner } from "@taquito/signer";
 import { cryptoUtils } from "sotez";
 import { sha256 } from "js-sha256";
@@ -42,17 +40,25 @@ declare global {
 }
 
 
-const network: Network = { type: NetworkType.GHOSTNET };
+// Shadownet — Beacon's @ecadlabs/beacon-types has a dedicated NetworkType.SHADOWNET
+// enum value that Kukai recognizes. Using NetworkType.CUSTOM instead causes Kukai
+// to reject pairing with NETWORK_NOT_SUPPORTED, even with the right rpcUrl —
+// Kukai validates the named-network enum, not the URL. Always use the named enum
+// when one exists. @taquito/beacon-wallet v24 uses ECAD Labs' Beacon fork, which
+// discovers working pairing relays dynamically — unlike the old @airgap/beacon-sdk
+// whose hardcoded papers.tech matrix relays are now CORS-blocked from browsers.
+const SHADOWNET_RPC = "https://rpc.shadownet.teztnets.com";
+const network: Network = { type: NetworkType.SHADOWNET, rpcUrl: SHADOWNET_RPC };
 
 let Tezos: TezosToolkit|null = null;
 
 async function getTezosToolkit() {
-    let endpoints = ["https://ghostnet.tezos.ecadinfra.com", "https://rpc.ghostnet.teztnets.com", "https://rpc.tzkt.io/ghostnet", "https://ghostnet.smartpy.io/"];
+    let endpoints = [SHADOWNET_RPC];
     endpoints.sort(() => Math.random() - 0.5);
     for(var i = 0; i < endpoints.length; i++) {
         try {
             let tezos = new TezosToolkit(endpoints[i]);
-            await tezos.rpc.getBlockHeader({ block: '1' });
+            await tezos.rpc.getBlockHeader({ block: 'head' });
             window.Tezos = Tezos = tezos;
             return;
         } catch(e) {
@@ -73,7 +79,7 @@ let myAddress: string | undefined;
 //     type: string;
 // }
 
-let editor: Ace.Editor | undefined;
+let editor: any;
 let input: JQuery<HTMLElement> | undefined;
 let nbHintsReceived = 0;
 
@@ -88,7 +94,7 @@ async function init() {
         $('#task').append('<div id="taquito"></div>');
     }
 
-    $('#taquito').html('<div id="taquito-connecting">Connecting to Tezos ghostnet...</div>');
+    $('#taquito').html('<div id="taquito-connecting">Connecting to Tezos shadownet...</div>');
     await getTezosToolkit();
     $('#taquito-connecting').remove();
 
@@ -161,7 +167,7 @@ async function initWallet() {
 
     wallet = new BeaconWallet({
         name: window.taquitoTaskData.walletName || "Taquito task",
-        preferredNetwork: network.type
+        network
     });
 
     Tezos.setWalletProvider(wallet);
@@ -186,10 +192,9 @@ function initEditor() {
 }
 
 async function connectWallet() {
-    await wallet.requestPermissions({
-        network,
-        scopes: [PermissionScope.OPERATION_REQUEST, PermissionScope.SIGN]
-    });
+    // v24/ECAD Beacon: the network is set at BeaconWallet construction;
+    // requestPermissions() no longer accepts a network argument.
+    await wallet.requestPermissions();
     const pkh = await wallet.getPKH();
     myAddress = pkh;
     updateWallet();
